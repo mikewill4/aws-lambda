@@ -14,9 +14,12 @@ def lambda_handler(event, context):
     #print(json.dumps(context))
     
     # process attrs to check validity and create ticket
-    #json_d = json.loads(event)
+    json_d = json.loads(event)
     req_fields = ["title", "summary", "category", "event"]
-    if set(req_fields).issubset(set(event.keys())):
+    if set(req_fields).issubset(set(json_d.keys())) and "user" in json_d["event"]:
+        ticket = {"title":json_d["category"] + ":" + json_d["event"]["user"], \
+                  "description":json["title"] + ":" + json_d["summary"], \
+                  "body":json_d["event"]}
         # Format put request for ticketdb
         dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
         table = dynamodb.Table('Tickets')
@@ -38,8 +41,8 @@ def lambda_handler(event, context):
         
         # Then execute batch write
         # aws dynamodb batch-write-item --request-items file://data.json
+       
         
-        return {"title":json_d["title"], "summary":json_d["summary"], \
-        "category":json_d["category"], "event":json_d["event"]}
+        return ticket
     else:
         return {"invalid":"malformed event error"}
