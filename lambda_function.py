@@ -18,7 +18,7 @@ def lambda_handler(event, context):
     if set(req_fields).issubset(set(json_d.keys())) and "user" in json_d["event"]:
         # format ticket from event
         ticket = {"id":json_d["category"] + ":" + json_d["event"]["user"], \
-                  "description":json["title"] + ":" + json_d["summary"], \
+                  "description":json_d["title"] + ":" + json_d["summary"], \
                   "body":json_d["event"]}
         
         # Format put request for ticketdb
