@@ -10,7 +10,7 @@ print('Loading function')
 def lambda_handler(event, context):
     print("live")
     sns = boto3.client(service_name="sns")
-  
+
     # process attrs to check validity and create ticket
     req_fields = ["title", "summary", "category", "event"]
     if set(req_fields).issubset(set(event.keys())):
