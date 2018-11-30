@@ -8,7 +8,7 @@ print('Loading function')
 
 
 def lambda_handler(event, context):
-    print("live")
+    print(event)
     sns = boto3.client(service_name="sns")
 
     # process attrs to check validity and create ticket
@@ -19,7 +19,7 @@ def lambda_handler(event, context):
         table = dynamodb.Table('Tickets')
         
         # Load event body json into dict
-        load_event = json.loads(event["event"])
+        load_event = event["event"]
         table.put_item(
             Item={
                 # Format json for ticketdb
