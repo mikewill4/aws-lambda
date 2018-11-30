@@ -10,10 +10,7 @@ print('Loading function')
 def lambda_handler(event, context):
     print(event)
     sns = boto3.client(service_name="sns")
-    print(event["Records"])
-    print(event["Records"][0])
-    print(event["Records"][0].keys())
-    message = event["Records"][0]["Message"]
+    message = event["Records"][0]["Sns"]["Message"]
 
     # process attrs to check validity and create ticket
     req_fields = ["title", "summary", "category", "event"]
