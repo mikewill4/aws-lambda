@@ -24,7 +24,7 @@ def lambda_handler(event, context):
         response = table.get_item(Key={"id": event["category"] + ":" + load_event["user"]})
         print(response)
         
-        if response is None:
+        if response["Item"] is None:
             table.put_item(
                 Item={
                     # Format json for ticketdb
