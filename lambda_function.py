@@ -15,7 +15,7 @@ def lambda_handler(event, context):
     # process attrs to check validity and create ticket
     req_fields = ["title", "summary", "category", "event"]
     # Load event body json into dict
-    load_event = dbjson.loads(message["event"])
+    load_event = dbjson.dump(message["event"])
     if set(req_fields).issubset(set(message.keys())) and "user" in load_event.keys():
         # Connect to ticketdb
         dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
