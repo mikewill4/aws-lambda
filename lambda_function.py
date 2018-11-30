@@ -10,7 +10,7 @@ print('Loading function')
 def lambda_handler(event, context):
     print(event)
     sns = boto3.client(service_name="sns")
-    message = event["Records"][0]["Sns"]["Message"]
+    message = dbjson.loads(event["Records"][0]["Sns"]["Message"])
     print(message)
     
     # process attrs to check validity and create ticket
