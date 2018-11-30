@@ -14,13 +14,13 @@ def lambda_handler(event, context):
 
     # process attrs to check validity and create ticket
     req_fields = ["title", "summary", "category", "event"]
-    if set(req_fields).issubset(set(message.keys())) and "user" in message["event"].keys():
+    # Load event body json into dict
+    load_event = dbjson.loads(message["event"])
+    if set(req_fields).issubset(set(message.keys())) and "user" in load_event.keys():
         # Connect to ticketdb
         dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
         table = dynamodb.Table('Tickets')
         
-        # Load event body json into dict
-        load_event = message["event"]
         print("about to push item")
         response = table.get_item(Key={"id": message["category"] + ":" + load_event["user"]})
         print(response)
@@ -31,7 +31,7 @@ def lambda_handler(event, context):
                     # Format json for ticketdb
                     "id": message["category"] + ":" + load_event["user"],
                     "description": message["title"] + ":" + message["summary"],
-                    "body": message["event"]
+                    "body": load_event
                 }
             )
             print("pushed, now exiting")
