@@ -1,0 +1,40 @@
+{
+	"Records": [
+		{
+			"eventID": "",
+			"eventName": "INSERT",
+			"eventVersion": "1.1",
+			"eventSource": "aws:dynamodb",
+			"awsRegion": "us-east-1",
+			"dynamodb": {
+				"ApproximateCreationDateTime": 147949970,
+				"Keys": {
+					"id": {
+						"S": "SourceName::SuperUser_login_from_suspicious_host:cn=A Privileged User"
+					},
+					"description": {
+						"S": "test description"
+					},
+					"body": {
+						"S": "test body"
+					}
+				},
+				"NewImage": {
+					"id": {
+						"S": "SourceName::SuperUser_login_from_suspicious_host:cn=A Privileged User"
+					},
+					"description": {
+						"S": "updated test description"
+					},
+					"body": {
+						"S": "updated test body"
+					}
+				},
+				"SequenceNumber": "13021600000000001596893679",
+				"SizeBytes": 112,
+				"StreamViewType": "NEW_IMAGE"
+			},
+			"eventSourceARN": ""
+		}
+	]
+}
